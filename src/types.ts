@@ -1,26 +1,26 @@
 export interface Badge {
     id: Number;
-    fill: String;
-    nom: String;
-    categorie: String;
-		description: String;
-		owner_id:Number;
+    fill?: String;
+    nom?: String;
+    categorie?: String;
+		description?: String;
+		owner_id?:Number;
 }
 
 export interface Login {
 	id: Number;
-	classe: String;
-	fill: String;
-	filliere: String;
-	mail: String;
-	mdp: String;
-	nom: String;
-	prenom: String;
+	classe?: String;
+	fill?: String;
+	filliere?: String;
+	mail?: String;
+	mdp?: String;
+	nom?: String;
+	prenom?: String;
 }
 
 export interface Owner {
 	id: Number;
-	nom: String;
+	nom?: String;
 }
 
 export interface OwnerRelation {
@@ -30,8 +30,8 @@ export interface OwnerRelation {
 
 export interface Request {
 	id: Number;
-	com: String;
+	com?: String;
 	idUser: Number;
-	obj: String;
-	preuve:Boolean;
+	obj?: String;
+	preuve?:Boolean;
 }

@@ -5,19 +5,19 @@ import { getConnection } from "./connection";
 
 const badgesList: Badge[] = [
     {
-        id: "1",
+        id: 1,
         fill: "Dev",
         nom: "",
         categorie: "General"
     },
     {
-        id: "2",
+        id: 2,
         fill: "Crea",
         nom: "",
         categorie: "General"
     },
     {
-        id: "3",
+        id: 3,
         fill: "3D",
         nom: "",
         categorie: "General"
