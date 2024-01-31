@@ -1,6 +1,7 @@
 import { Env } from ".";
 import { error404 } from "./error";
 import { Badge } from "./types";
+import { getConnection } from "./connection";
 
 const badgesList: Badge[] = [
     {
@@ -25,9 +26,12 @@ const badgesList: Badge[] = [
 
 
 const getBadge = async (id: String): Promise<Response> => {
-    const badgeById = badgesList.filter((b: Badge) => b.id == id);
-    if (badgeById.length > 0) {
-        const response = new Response(JSON.stringify(badgeById[0]));
+    // const badgeById = badgesList.filter((b: Badge) => b.id == id);
+    const connection = await getConnection();
+    const badgesResult = await connection.query("SELECT id, fill, nom, categorie, description FROM badge WHERE id = $1", [id]);
+    const rows = badgesResult.rows;
+    if (rows.length > 0) {
+        const response = new Response(JSON.stringify(rows[0]));
         response.headers.set("Content-Type", "application/json");
         return response;
     }
@@ -37,8 +41,14 @@ const getBadge = async (id: String): Promise<Response> => {
 }
 
 const getAllBadges = async (): Promise<Response> => {
-    const badges: Badge[] = [...badgesList];
-    const response = new Response(JSON.stringify(badges));
+    // const badges: Badge[] = [...badgesList];
+    // const response = new Response(JSON.stringify(badges));
+    // response.headers.set("Content-Type", "application/json");
+    // return response;
+    const connection = await getConnection();
+    const result = await connection.query("SELECT id, fill, nom, categorie, description FROM badge");
+    console.log(result.rows);
+    const response = new Response(JSON.stringify(result.rows));
     response.headers.set("Content-Type", "application/json");
     return response;
 }

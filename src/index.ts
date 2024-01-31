@@ -9,6 +9,7 @@
  */
 
 import { handleBadges } from "./badges";
+import { initialize } from "./connection";
 
 export interface Env {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -30,6 +31,7 @@ export interface Env {
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+		initialize(env);
 		const url: URL = new URL(request.url);
 		if (url.pathname.startsWith("/badges")) {
 			return handleBadges(request, env, ctx);
