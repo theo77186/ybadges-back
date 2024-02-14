@@ -81,13 +81,14 @@ const createBadge = async (input: LocalBadge, userId: number = 1): Promise<Respo
     if (newBadge.categorie == undefined ||
         newBadge.description == undefined ||
         newBadge.fill == undefined ||
-        newBadge.nom == undefined) {
+        newBadge.nom == undefined ||
+        newBadge.id == undefined) {
         return error400("missing field");
     }
 
     const connection = await getConnection();
-    const result = await connection.query("INSERT INTO badge (fill, nom, categorie, description, owner_id, id) VALUES ($1,$2,$3,$4,$5, 3) RETURNING id",
-    [newBadge.fill, newBadge.nom, newBadge.categorie, newBadge.description, userId]);
+    const result = await connection.query("INSERT INTO badge (fill, nom, categorie, description, owner_id, id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id",
+    [newBadge.fill, newBadge.nom, newBadge.categorie, newBadge.description, userId, newBadge.id]);
 
     const responseObj = { id: result.rows[0].id };
     const response = new Response(JSON.stringify(responseObj));
