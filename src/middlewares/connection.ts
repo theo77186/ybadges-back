@@ -1,11 +1,10 @@
-import { Env } from ".";
 import { Client } from "pg";
 
 
 let initialized: boolean = false;
-let psql_connection: string = "";
+let psql_connection: string | undefined = "";
 
-export const initialize = (env: Env): void => {
+export const initialize = (env: NodeJS.ProcessEnv): void => {
     if (!initialized) {
         initialized = true;
         psql_connection = env.PSQL_CONNECTION_STRING;

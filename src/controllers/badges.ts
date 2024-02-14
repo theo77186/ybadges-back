@@ -1,28 +1,7 @@
-import { Env } from ".";
-import { error400, error404 } from "./error";
-import { Badge } from "./types";
-import { getConnection } from "./connection";
-
-const badgesList: Badge[] = [
-    {
-        id: 1,
-        fill: "Dev",
-        nom: "",
-        categorie: "General"
-    },
-    {
-        id: 2,
-        fill: "Crea",
-        nom: "",
-        categorie: "General"
-    },
-    {
-        id: 3,
-        fill: "3D",
-        nom: "",
-        categorie: "General"
-    }
-];
+import { Env } from "..";
+import { error400, error404 } from "../error";
+import { Badge } from "../types";
+import { getConnection } from "../connection";
 
 // FIXME: use the real Badge type
 interface LocalBadge {
