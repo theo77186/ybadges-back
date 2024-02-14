@@ -96,8 +96,8 @@ const createBadge = async (input: LocalBadge, userId: number = 1): Promise<Respo
     return response;
 }
 
-const updateBadge = async (id: string, input: string): Promise<Response> => {
-    const updatedBadge = parseBadge(input);
+const updateBadge = async (id: string, input: LocalBadge): Promise<Response> => {
+    const updatedBadge = input;
     const {fill, nom, categorie, description} = updatedBadge;
     const connection = await getConnection();
     if (fill != undefined) {
