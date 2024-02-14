@@ -75,8 +75,9 @@ const getAllBadges = async (): Promise<Response> => {
     return response;
 }
 
-const createBadge = async (input: string, userId: number = 0): Promise<Response> => {
-    const newBadge = parseBadge(input);
+const createBadge = async (input: LocalBadge, userId: number = 1): Promise<Response> => {
+    // fixme: clean this
+    const newBadge = input;
     if (newBadge.categorie == undefined ||
         newBadge.description == undefined ||
         newBadge.fill == undefined ||
@@ -85,7 +86,7 @@ const createBadge = async (input: string, userId: number = 0): Promise<Response>
     }
 
     const connection = await getConnection();
-    const result = await connection.query("INSERT INTO badge (fill, nom, categorie, description, owner_id) VALUES ($1,$2,$3,$4,$5) RETURNING id",
+    const result = await connection.query("INSERT INTO badge (fill, nom, categorie, description, owner_id, id) VALUES ($1,$2,$3,$4,$5, 3) RETURNING id",
     [newBadge.fill, newBadge.nom, newBadge.categorie, newBadge.description, userId]);
 
     const responseObj = { id: result.rows[0].id };
@@ -129,10 +130,10 @@ const deleteBadge = async (id: string): Promise<Response> => {
 export const handleBadges = async (request: Request, env: Env, ctx: ExecutionContext): Promise<Response> => {
     const url = new URL(request.url);
     const pathname = url.pathname;
-    if (/^\/badges\/list\/?$/.test(pathname)) {
+    if (/^\/badges\/?$/.test(pathname) && request.method == "GET") {
         return getAllBadges();
     }
-    else if (/^\/badges\/create\/?$/.test(pathname) && request.method == "POST") {
+    else if (/^\/badges\/?$/.test(pathname) && request.method == "POST") {
         return createBadge(await request.json());
     }
     else {
