@@ -71,6 +71,11 @@ const getAllBadges = async (): Promise<Response> => {
     const result = await connection.query("SELECT id, fill, nom, categorie, description FROM badge");
     console.log(result.rows);
     const response = new Response(JSON.stringify(result.rows));
+		response.headers.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+		response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+		response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+		response.headers.set('Access-Control-Allow-Credentials', 'true');
+		response.headers.set("Content-Type", "application/json");
     response.headers.set("Content-Type", "application/json");
     return response;
 }
