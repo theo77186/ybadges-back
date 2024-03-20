@@ -91,7 +91,7 @@ export const handleBadges = async (request: RequestHandler, env:Env, ctx: Execut
 			let idDelete;
 			if (request.getHeaders().get("idBadge") != null) {
 				idDelete = parseInt(request.getHeaders().get("idBadge") as string);
-				return controller.getBadgeById(idDelete);
+				return controller.deleteBadge(idDelete);
 			} else {
 				return error404("idBadge header is missing");
 			}
