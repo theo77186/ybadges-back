@@ -1,13 +1,17 @@
 import { initialize } from "./middlewares/connection";
-import dotenv from "dotenv";
 import { handleRoutes } from './routes';
-
-dotenv.config();
+import { Env } from './env.interface';
+import RequestHandler from './request.interface'
 
 export default {
-	async fetch(request: Request, ctx: ExecutionContext): Promise<Response> {
-		const env = process.env;
-		initialize(env);
-		return handleRoutes(request, env, ctx);
+	async fetch(request: Request, env:Env, ctx: ExecutionContext): Promise<Response> {
+		const sql_string = env.PSQL_CONNECTION_STRING;
+		const requestHandler = new RequestHandler(request);
+		if(sql_string != undefined){
+			initialize(sql_string);
+		} else {
+			console.log("erreur de recuperation du .env")
+		}
+		return handleRoutes(requestHandler,env, ctx);
 	}
 };

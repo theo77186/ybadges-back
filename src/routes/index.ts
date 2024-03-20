@@ -1,12 +1,11 @@
 import { handleBadges } from "./route.badge";
-import { error400 } from '../middlewares/error';
+import { error400 } from '../middlewares/returnCode';
+import { Env } from '../env.interface'
+import RequestHandler from '../request.interface';
 
-export const handleRoutes = async (request: Request, env: any, ctx: ExecutionContext): Promise<Response> => {
-	const url: URL = new URL(request.url);
-	const route = url.pathname.split('/')[1]
+export const handleRoutes = async (request: RequestHandler, env:Env, ctx: ExecutionContext): Promise<Response> => {
 
-	console.log(route);
-	switch (route){
+	switch (request.parseTable()){
 		case "badges":
 			return handleBadges(request, env, ctx);
 

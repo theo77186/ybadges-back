@@ -2,12 +2,13 @@ import { Client } from "pg";
 
 
 let initialized: boolean = false;
-let psql_connection: string | undefined = "";
+let psql_connection: string;
 
-export const initialize = (env: NodeJS.ProcessEnv): void => {
+export const initialize = (sql_string: string): void => {
     if (!initialized) {
         initialized = true;
-        psql_connection = env.PSQL_CONNECTION_STRING;
+				console.log(sql_string)
+        psql_connection = sql_string;
     }
 };
 

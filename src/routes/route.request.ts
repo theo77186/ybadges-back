@@ -1,11 +1,10 @@
 import { handleBadges } from '../controllers/badges';
-import { error400 } from '../middlewares/error';
+import { error400 } from '../middlewares/returnCode';
 
 export const handleRequests = async (request: Request, env: any, ctx: ExecutionContext): Promise<Response> => {
 	const url: URL = new URL(request.url);
 	const route = url.pathname.split('/')[1]
 
-	console.log(route);
 	switch (route){
 		case "badges":
 			return handleBadges(request, env, ctx);
